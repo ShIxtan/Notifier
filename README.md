@@ -38,7 +38,7 @@ I need API routes for
   - create
 
 No auth is needed for this, I'll just not let people sign in with the same name
-I could do websockets instead of the long pulls. The fact that I don't know how is one thing preventing me, the other is that a long pull seems simpler to implement. (might not be true, I should look into it.)
+I could do websockets instead of the long pulls. The fact that I don't know how is one thing preventing me, the other is that a long pull seems simpler to implement. (might not be true, I should look into it.) Looking into sockets, they don't look too bad, but I think I'll stick with a long pull for now. Maybe I'll also auto-destroy a user if they go a minute without the long pull loops running.
 
 the whole display should be thought of as a module that exposes the following api to other javascript code:
 
