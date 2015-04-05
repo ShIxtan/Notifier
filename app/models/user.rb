@@ -24,4 +24,9 @@ class User < ActiveRecord::Base
     foreign_key: :sender_id,
     primary_key: :id
   )
+
+  def generate
+    name = "guest#{rand(9999)}"
+    User.new username: name
+  end
 end

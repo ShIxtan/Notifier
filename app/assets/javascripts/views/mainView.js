@@ -11,22 +11,22 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   showAlert: function(){
-    this.alert ||= new Notifier.Views.Alert();
+    this.alert = this.alert || new Notifier.Views.Alert();
     this.addSubview(".alert", this.alert);
   },
 
   showMessages: function(){
-    this.messages ||= new Notifier.Views.Messages();
+    this.messages = this.messages || new Notifier.Views.Messages();
     this.addSubview(".messages", this.messages);
   },
 
   showControls: function(){
-    this.controls ||= new Notifier.Views.Controls();
+    this.controls = this.controls || new Notifier.Views.Controls();
     this.addSubview(".controls", this.controls);
   },
 
   showFriends: function(){
-    this.friends ||= new Notifier.Views.Friends();
+    this.friends = this.friends || new Notifier.Views.Friends();
     this.addSubview(".friends", this.friends);
   }
 })
