@@ -17,7 +17,15 @@ class Api::MessagesController < ApplicationController
       end
     end
     @messages = current_user.messages
-    render :index
+    render json: @messages
+  end
+  
+  def show
+    until current_user.newest_message.id != params[:id]
+    end
+
+    @message = current_user.newest_message
+    render json: @message
   end
 
   private

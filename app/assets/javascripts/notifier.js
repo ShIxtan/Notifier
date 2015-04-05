@@ -4,6 +4,7 @@ window.Notifier = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    new Notifier.Routers.Router({$rootEl: $('body')})
+    Backbone.history.start()
   }
 };
