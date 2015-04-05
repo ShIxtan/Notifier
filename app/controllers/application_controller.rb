@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   def current_user
     if session[:username]
       user = User.find_by(username: session[:username])
-    else
+    end
+
+    unless user
       user = User.generate()
       session[:username] = user.username
     end

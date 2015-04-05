@@ -11,13 +11,13 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   showAlert: function(){
-    this.alert = this.alert || new Notifier.Views.Alert();
+    this.alert = this.alert || new Notifier.Views.Alert({model: this.message()});
     this.addSubview(".alert", this.alert);
   },
 
   showMessages: function(){
-    this.messages = this.messages || new Notifier.Views.Messages();
-    this.addSubview(".messages", this.messages);
+    this.message_history = this.message_history || new Notifier.Views.Messages({collection: this.messages()});
+    this.addSubview(".messages", this.message_history);
   },
 
   showControls: function(){
@@ -26,7 +26,31 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   showFriends: function(){
-    this.friends = this.friends || new Notifier.Views.Friends();
+    this.friends = this.friends || new Notifier.Views.Friends({collection: this.users()});
     this.addSubview(".friends", this.friends);
+  },
+
+  message: function(){
+    if (!this._message){
+      this._message = new Notifier.Models.Message();
+    }
+
+    return this._message;
+  },
+
+  messages: function(){
+    if (!this._messages){
+      this._messages = new Notifier.Collections.Messages();
+    }
+
+    return this._messages;
+  },
+
+  users: function(){
+    if (!this._users){
+      this._users = new Notifier.Collections.Users();
+    }
+
+    return this._users;
   }
 })

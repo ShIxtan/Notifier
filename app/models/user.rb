@@ -9,7 +9,7 @@
 #
 
 class User < ActiveRecord::Base
-  validates :username, presence: true, uniqeness: true
+  validates :username, presence: true, uniqueness: true
 
   has_many(
     :messages,
@@ -25,8 +25,9 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
-  def generate
+  def self.generate
     name = "guest#{rand(9999)}"
-    User.new username: name
+    user = self.create(username: name)
+    return user
   end
 end
