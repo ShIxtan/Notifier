@@ -7,7 +7,3 @@ window.Notifier = {
     alert('Hello from Backbone!');
   }
 };
-
-$(document).ready(function(){
-  Notifier.initialize();
-});
