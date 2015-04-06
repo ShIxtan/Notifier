@@ -11,6 +11,6 @@ Notifier.Collections.Users = Backbone.Collection.extend({
     var that = this
     setTimeout(function(){
       that.fetch();
-    }, 30000)
+    }, 5000)
   }
 });

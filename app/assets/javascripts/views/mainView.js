@@ -8,10 +8,11 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   render: function(){
     this.$el.html(this.template())
+    this.showFriends();
     this.showAlert();
     this.showMessages();
     this.showControls();
-    this.showFriends();
+    this.showUsername();
     return this;
   },
 
@@ -51,6 +52,15 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     }
   },
 
+  showUsername: function(){
+    if (this.username) {
+      $(".username").fadeIn()
+    } else {
+      this.username = new Notifier.Views.Username();
+      this.addSubview(".username", this.username);
+    }
+  },
+
   hideAlert: function(){
     $(".alert").fadeOut();
   },
@@ -65,6 +75,10 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   hideFriends: function(){
     $(".friends").fadeOut();
+  },
+
+  hideUsername: function(){
+    $(".username").fadeOut();
   },
 
   message: function(){
@@ -105,6 +119,8 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
       case 70:
         $(".friends").fadeToggle();
         break;
+      case 85:
+        $(".username").fadeToggle();
     }
   }
 })

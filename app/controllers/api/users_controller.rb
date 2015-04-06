@@ -1,6 +1,8 @@
 class Api::UsersController < ApplicationController
   def create
-    @user = User.new(user_params)
+
+    @user = current_user
+    @user.username = params[:username]
 
     if @user.save
       render json: @user
@@ -18,13 +20,7 @@ class Api::UsersController < ApplicationController
   end
 
   def index
-    User.where("updated_at < ?", 30.seconds.ago).destroy_all
+    User.where("updated_at < ?", 10.seconds.ago).destroy_all
     render json: User.all
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:username)
   end
 end
