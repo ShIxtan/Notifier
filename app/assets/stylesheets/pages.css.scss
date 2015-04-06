@@ -4,6 +4,13 @@
   border-radius: 5px;
   padding: 5px;
   position: absolute;
+  -webkit-transition: width 0.5s, height 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, transform 0.5s;
+}
+
+.box ul{
+  list-style-type: none;
+  margin-left: -40px;
 }
 
 .alert{

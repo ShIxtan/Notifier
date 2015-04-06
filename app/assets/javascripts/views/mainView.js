@@ -1,6 +1,11 @@
 Notifier.Views.MainView = Backbone.CompositeView.extend({
   template: JST['mainView'],
 
+  initialize: function(){
+    _.bindAll(this, 'onKeydown');
+    $(document).bind('keydown', this.onKeydown);
+  },
+
   render: function(){
     this.$el.html(this.template())
     this.showAlert();
@@ -11,23 +16,55 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   showAlert: function(){
-    this.alert = this.alert || new Notifier.Views.Alert({model: this.message()});
-    this.addSubview(".alert", this.alert);
+    if (this.alert) {
+      $(".alert").show()
+    } else {
+      this.alert = new Notifier.Views.Alert({model: this.message()});
+      this.addSubview(".alert", this.alert);
+    }
   },
 
   showMessages: function(){
-    this.message_history = this.message_history || new Notifier.Views.Messages({collection: this.messages()});
-    this.addSubview(".messages", this.message_history);
+    if (this.message_history) {
+      $(".messages").show()
+    } else {
+      this.message_history = new Notifier.Views.Messages({collection: this.messages()});
+      this.addSubview(".messages", this.message_history);
+    }
   },
 
   showControls: function(){
-    this.controls = this.controls || new Notifier.Views.Controls();
-    this.addSubview(".controls", this.controls);
+    if (this.controls) {
+      $(".controls").show()
+    } else {
+      this.controls = new Notifier.Views.Controls();
+      this.addSubview(".controls", this.controls);
+    }
   },
 
   showFriends: function(){
-    this.friends = this.friends || new Notifier.Views.Friends({collection: this.users()});
-    this.addSubview(".friends", this.friends);
+    if (this.friends) {
+      $(".friends").show()
+    } else {
+      this.friends = new Notifier.Views.Friends({collection: this.users()});
+      this.addSubview(".friends", this.friends);
+    }
+  },
+
+  hideAlert: function(){
+    $(".alert").hide();
+  },
+
+  hideMessages: function(){
+    $(".messages").hide();
+  },
+
+  hideControls: function(){
+    $(".controls").hide();
+  },
+
+  hideFriends: function(){
+    $(".friends").hide();
   },
 
   message: function(){
@@ -52,5 +89,22 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     }
 
     return this._users;
+  },
+
+  onKeydown: function(e){
+    switch (e.keyCode){
+      case 65:
+        $(".alert").toggle();
+        break;
+      case 77:
+        $(".messages").toggle();
+        break;
+      case 67:
+        $(".controls").toggle();
+        break;
+      case 70:
+        $(".friends").toggle();
+        break;
+    }
   }
 })
