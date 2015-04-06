@@ -19,6 +19,7 @@ class Api::MessagesController < ApplicationController
   def show
     @message = current_user.next_message
     current_user.touch
+    puts current_user.updated_at
     render json: @message
   end
 

@@ -33,11 +33,10 @@ class User < ActiveRecord::Base
       message = self.messages.first
     end
 
-    return {} if self.current_message == message.id
-    self.current_message = message.id
+    self.current_message = message.id if message
     self.save
 
-    message
+    message ? message : {content: ""}
   end
 
   def self.generate
