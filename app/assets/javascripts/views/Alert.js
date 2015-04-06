@@ -7,15 +7,19 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
   },
 
   render: function(){
+
     this.$el.html(this.template({content: this.queue.shift()}));
+
     if (this.queue){
       this.renderIn(5000)
     }
+
+    setTimeout(function(){this.$el.html("")}.bind(this), 4900)
     return this
   },
 
   updateQueue: function(){
-    this.addToQueue(this.model.content);
+    this.addToQueue(this.model.get("content"));
   },
 
   addToQueue: function(string){

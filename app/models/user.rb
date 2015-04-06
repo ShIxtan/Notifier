@@ -9,6 +9,7 @@
 #
 
 class User < ActiveRecord::Base
+  after_create :add_messages
   validates :username, presence: true, uniqueness: true
 
   has_many(
@@ -26,8 +27,13 @@ class User < ActiveRecord::Base
   )
 
   def self.generate
-    name = "guest#{rand(9999)}"
+    name = "guest#{rand(99999)}"
     user = self.create(username: name)
     return user
+  end
+
+  def add_messages
+    self.messages.create({content: "hi", sender_id: self.id})
+    self.messages.create({content: "this is your second message", sender_id: self.id})
   end
 end

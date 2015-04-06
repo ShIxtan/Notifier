@@ -6,11 +6,14 @@ class ApplicationController < ActionController::Base
       user = User.find_by(username: session[:username])
     end
 
-    unless user
-      user = User.generate()
-      session[:username] = user.username
-    end
+    user ||= User.generate()
+    session[:username] = user.username
 
     return user
+  end
+
+  def logout
+    current_user.destroy
+    session[:username] = nil
   end
 end

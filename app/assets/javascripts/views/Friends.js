@@ -6,8 +6,7 @@ Notifier.Views.Friends = Backbone.CompositeView.extend({
   },
 
   render: function(){
-    console.log(this.collection)
     this.$el.html(this.template({friends: this.collection}));
-    return this
+    return this;
   }
 })

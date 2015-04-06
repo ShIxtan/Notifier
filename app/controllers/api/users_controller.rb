@@ -18,6 +18,7 @@ class Api::UsersController < ApplicationController
   end
 
   def index
+    User.where("updated_at < ?", 30.seconds.ago).destroy_all
     render json: User.all
   end
 

@@ -32,7 +32,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   message: function(){
     if (!this._message){
-      this._message = new Notifier.Models.Message();
+      this._message = new Notifier.Models.Alert();
     }
 
     return this._message;
