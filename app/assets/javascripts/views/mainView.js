@@ -17,7 +17,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   showAlert: function(){
     if (this.alert) {
-      $(".alert").show()
+      $(".alert").fadeIn()
     } else {
       this.alert = new Notifier.Views.Alert({model: this.message()});
       this.addSubview(".alert", this.alert);
@@ -26,7 +26,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   showMessages: function(){
     if (this.message_history) {
-      $(".messages").show()
+      $(".messages").fadeIn()
     } else {
       this.message_history = new Notifier.Views.Messages({collection: this.messages()});
       this.addSubview(".messages", this.message_history);
@@ -35,7 +35,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   showControls: function(){
     if (this.controls) {
-      $(".controls").show()
+      $(".controls").fadeIn()
     } else {
       this.controls = new Notifier.Views.Controls();
       this.addSubview(".controls", this.controls);
@@ -44,7 +44,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   showFriends: function(){
     if (this.friends) {
-      $(".friends").show()
+      $(".friends").fadeIn()
     } else {
       this.friends = new Notifier.Views.Friends({collection: this.users()});
       this.addSubview(".friends", this.friends);
@@ -52,19 +52,19 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   hideAlert: function(){
-    $(".alert").hide();
+    $(".alert").fadeOut();
   },
 
   hideMessages: function(){
-    $(".messages").hide();
+    $(".messages").fadeOut();
   },
 
   hideControls: function(){
-    $(".controls").hide();
+    $(".controls").fadeOut();
   },
 
   hideFriends: function(){
-    $(".friends").hide();
+    $(".friends").fadeOut();
   },
 
   message: function(){
@@ -94,16 +94,16 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   onKeydown: function(e){
     switch (e.keyCode){
       case 65:
-        $(".alert").toggle();
+        $(".alert").fadeToggle();
         break;
       case 77:
-        $(".messages").toggle();
+        $(".messages").fadeToggle();
         break;
       case 67:
-        $(".controls").toggle();
+        $(".controls").fadeToggle();
         break;
       case 70:
-        $(".friends").toggle();
+        $(".friends").fadeToggle();
         break;
     }
   }
