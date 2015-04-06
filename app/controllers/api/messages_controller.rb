@@ -12,16 +12,19 @@ class Api::MessagesController < ApplicationController
   end
 
   def index
-    if params[:message_ids]
-      until params[:message_ids].frequency != current_user.message_ids.frequency
+    if session[:message_ids]
+      until session[:message_ids].frequency != current_user.message_ids.frequency
+        sleep(1)
       end
     end
     @messages = current_user.messages
+    session[:message_ids] = @messages.pluck(:id)
     render json: @messages
   end
-  
+
   def show
     until current_user.newest_message.id != params[:id]
+      sleep(1)
     end
 
     @message = current_user.newest_message

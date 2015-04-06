@@ -3,6 +3,7 @@ Notifier.Collections.Users = Backbone.Collection.extend({
   model: Notifier.Models.User,
 
   initialize: function(){
+    this.listenTo(this, "sync", this.fetch.bind(this))
     this.fetch();
   }
 });

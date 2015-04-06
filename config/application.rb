@@ -24,3 +24,11 @@ module Notifier
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+class Array
+  def frequency
+    p = Hash.new(0)
+    each{ |v| p[v] += 1 }
+    p
+  end
+end

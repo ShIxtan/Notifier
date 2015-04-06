@@ -18,6 +18,12 @@ class Api::UsersController < ApplicationController
   end
 
   def index
+    if session[:user_ids]
+      until session[:user_ids].frequency != User.pluck(:id).frequency
+        sleep(1)
+      end
+    end
+    session[:user_ids] = User.pluck(:id)
     render json: User.all
   end
 
