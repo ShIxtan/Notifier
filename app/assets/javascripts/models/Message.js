@@ -2,7 +2,14 @@ Notifier.Models.Message = Backbone.Model.extend({
   urlRoot: "api/messages",
 
   initialize: function(){
-    this.listenTo(this, "sync", this.fetch.bind(this))
+    this.listenTo(this, "sync", this.check.bind(this))
     this.fetch();
+  },
+
+  check: function(){
+    var that = this
+    setTimeout(function(){
+      this.fetch();
+    }, 30000)
   }
 });
