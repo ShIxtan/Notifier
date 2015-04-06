@@ -9,7 +9,7 @@ Notifier.Models.Message = Backbone.Model.extend({
   check: function(){
     var that = this
     setTimeout(function(){
-      this.fetch();
+      that.fetch();
     }, 30000)
   }
 });

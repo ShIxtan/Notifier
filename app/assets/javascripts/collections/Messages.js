@@ -10,7 +10,7 @@ Notifier.Collections.Messages = Backbone.Collection.extend({
   check: function(){
     var that = this
     setTimeout(function(){
-      this.fetch();
+      that.fetch();
     }, 30000)
   }
 });
