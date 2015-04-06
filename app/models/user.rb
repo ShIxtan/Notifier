@@ -26,6 +26,20 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  def next_message
+    if self.current_message
+      message = self.messages.find_by("id > #{current_message}")
+    else
+      message = self.messages.first
+    end
+
+    return {} if self.current_message == message.id
+    self.current_message = message.id
+    self.save
+
+    message
+  end
+
   def self.generate
     name = "guest#{rand(99999)}"
     user = self.create(username: name)

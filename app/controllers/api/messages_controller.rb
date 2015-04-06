@@ -17,7 +17,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def show
-    @message = current_user.messages.find_by("id > #{params[:id]}")
+    @message = current_user.next_message
     current_user.touch
     render json: @message
   end
