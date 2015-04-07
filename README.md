@@ -28,3 +28,4 @@ Also, all panes can be drag-and-dropped anywhere on the screen.
 -[ ] Sometimes fails to remove users when browser is closed.
 -[ ] Would be nice if a refresh didn't reset user.
 -[ ] Some sort of authentication might be good.
+-[ ] command to disable/enable voice commands.
