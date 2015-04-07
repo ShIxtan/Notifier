@@ -8,15 +8,12 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
   render: function(){
     if (this.queue.length > 0){
       this.$el.html(this.template({content: this.queue.shift()}));
-      $('.alert').fadeIn();
+      $('.alert').show("Slide");
 
       if (this.queue.length > 0){
-        this.renderIn(5000);
+        setTimeout(function(){$(".alert").hide()}, 6900);
+        this.renderIn(7000);
       }
-
-      setTimeout(function(){$(".alert").fadeOut()}, 4900);
-    } else {
-      $(".alert").hide();
     }
     return this
   },

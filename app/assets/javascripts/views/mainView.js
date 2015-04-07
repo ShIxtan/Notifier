@@ -139,7 +139,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   setupSockets: function(){
-    this.dispatcher = new WebSocketRails('notifyer.herokuapp.com/websocket');
+    this.dispatcher = new WebSocketRails('localhost:3000/websocket');
 
     this.dispatcher.bind("new_message", this.newMessage.bind(this));
     this.dispatcher.bind("update_user", this.updateUser.bind(this));

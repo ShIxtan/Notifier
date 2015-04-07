@@ -9,7 +9,7 @@
 #
 
 class User < ActiveRecord::Base
-  after_create: new_user_messages
+  after_create :new_user_messages
   validates :username, presence: true, uniqueness: true
 
   has_many(
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     self.messages.create({content: "Hi! Welcome to the room!"})
     self.messages.create({content: "You have keyboard and voice controls."})
     self.messages.create({content: "To see keyboard controls, press ctrl + C"})
-    self.messages.create({content: "To use voice controls, make sure to allow ^"})
+    self.messages.create({content: "To use voice controls, allow above ^"})
     self.messages.create({content: "Try saying 'show all', 'send message hello', or 'change username to skywalker'"})
   end
 end
