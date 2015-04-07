@@ -4,6 +4,28 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   initialize: function(){
     _.bindAll(this, 'onKeydown');
     $(document).bind('keydown', this.onKeydown);
+
+    if (annyang) {
+      // Let's define our first command. First the text we expect, and then the function it should call
+      var commands = {
+        'show messages': function(){
+          alert("hi")
+        },
+        'show alerts': this.showAlert.bind(this),
+        'show controls': this.showControls.bind(this),
+        'show friends': this.showFriends.bind(this),
+        'hide messages': this.hideMessages.bind(this),
+        'hide alerts': this.hideAlert.bind(this),
+        'hide controls': this.hideControls.bind(this),
+        'hide friends': this.hideFriends.bind(this),
+      };
+
+      // Add our commands to annyang
+      annyang.addCommands(commands);
+
+      // Start listening. You can call this here, or attach this call to an event, button, etc.
+      annyang.start();
+    }
   },
 
   render: function(){
@@ -70,6 +92,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   hideControls: function(){
+    debugger
     $(".controls").fadeOut();
   },
 

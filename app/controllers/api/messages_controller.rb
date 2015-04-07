@@ -12,7 +12,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def index
-    @messages = current_user.messages
+    @messages = current_user.messages.last(10)
     render json: @messages
   end
 
