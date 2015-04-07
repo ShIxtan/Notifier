@@ -54,7 +54,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   showUsername: function(){
     if (this.username) {
-      $(".username").fadeIn()
+      $(".username").fadeIn();
     } else {
       this.username = new Notifier.Views.Username();
       this.addSubview(".username", this.username);
@@ -113,21 +113,24 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   onKeydown: function(e){
-    switch (e.keyCode){
-      case 65:
-        $(".alert").fadeToggle();
-        break;
-      case 77:
-        $(".messages").fadeToggle();
-        break;
-      case 67:
-        $(".controls").fadeToggle();
-        break;
-      case 70:
-        $(".friends").fadeToggle();
-        break;
-      case 85:
-        $(".username").fadeToggle();
+    if (e.ctrlKey){
+      switch (e.keyCode){
+        case 65:
+          $(".alert").fadeToggle();
+          break;
+        case 77:
+          $(".messages").fadeToggle();
+          break;
+        case 67:
+          $(".controls").fadeToggle();
+          break;
+        case 70:
+          $(".friends").fadeToggle();
+          break;
+        case 85:
+          $(".username").fadeToggle();
+          $(".name input").focus();
+      }
     }
   },
 
