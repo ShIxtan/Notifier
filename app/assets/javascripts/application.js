@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
+//= require websocket_rails/main
 //= require notifier
 //= require annyang.min.js
 //= require_tree ../templates
