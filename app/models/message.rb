@@ -11,7 +11,7 @@
 #
 
 class Message < ActiveRecord::Base
-  validates :content, :reciever_id, presence: true
+  validates :content, presence: true
 
   belongs_to(
     :sender,
