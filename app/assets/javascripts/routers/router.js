@@ -34,7 +34,7 @@ Notifier.Routers.Router = Backbone.Router.extend({
       annyang.start();
     }
 
-    var dispatcher = new WebSocketRails('localhost:3000/websocket');
+    var dispatcher = new WebSocketRails('notifyer.herokuapp.com/websocket');
     dispatcher.bind("new_message", this._mainView.newMessage.bind(this._mainView));
     dispatcher.bind("update_user", this._mainView.updateUser.bind(this._mainView));
     dispatcher.bind("new_user", this._mainView.newUser.bind(this._mainView));
