@@ -4,7 +4,7 @@ class SocketController < WebsocketRails::BaseController
 
   def new_message
     if message[:content]
-      m = Message.create(message)
+      message[:content] = "#{connection_store[:user].username} says '#{message[:content]}'"
       broadcast_message :new_message, message
     end
   end

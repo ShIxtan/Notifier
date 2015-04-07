@@ -123,7 +123,8 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
         'show *term': this.showBox.bind(this),
         'hide *term': this.hideBox.bind(this),
         'change username': this.showBox.bind(this, "username"),
-        'change username to *term': this.updateName.bind(this)
+        'change username to *term': this.updateName.bind(this),
+        'send message *term': this.sendMessage.bind(this)
       };
 
       annyang.addCommands(commands);
@@ -152,8 +153,8 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   },
 
   newMessage: function(message){
-    this.alert.addToQueue(message);
-    this.messages().add({content: message});
+    this.alert.addToQueue(message.content);
+    this.messages().add(message);
   },
 
   newUser: function(new_user){
@@ -163,5 +164,9 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
   destroyUser: function(new_user){
     var user = this.users().findWhere({id: new_user.id});
     this.users().remove(user);
+  },
+
+  sendMessage: function(text){
+    this.dispatcher.trigger("message.send", {content: text})
   }
 })
