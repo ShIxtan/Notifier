@@ -8,92 +8,53 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   render: function(){
     this.$el.html(this.template())
-    this.showFriends();
-    this.showAlert();
-    this.showMessages();
-    this.showControls();
-    this.showUsername();
+    this.addSubviews();
+    this.afterRender();
     return this;
   },
 
-  showAlert: function(){
-    if (this.alert) {
-      $(".alert").fadeIn()
-    } else {
-      this.alert = new Notifier.Views.Alert();
-      this.addSubview(".alert", this.alert);
-    }
+  events: {
+    "submit .name": "updateUsername"
   },
 
-  showMessages: function(){
-    if (this.message_history) {
-      $(".messages").fadeIn()
-    } else {
-      this.message_history = new Notifier.Views.Messages({collection: this.messages()});
-      this.addSubview(".messages", this.message_history);
-    }
+  addSubviews: function(){
+    this.alert = new Notifier.Views.Alert();
+    this.addSubview(".alert", this.alert);
+
+    this.message_history = new Notifier.Views.Messages({collection: this.messages()});
+    this.addSubview(".messages", this.message_history);
+
+    this.controls = new Notifier.Views.Controls();
+    this.addSubview(".controls", this.controls);
+
+    this.friends = new Notifier.Views.Friends({collection: this.users()});
+    this.addSubview(".friends", this.friends);
+
+    this.username = new Notifier.Views.Username();
+    this.addSubview(".username", this.username);
   },
 
-  showControls: function(){
-    if (this.controls) {
-      $(".controls").fadeIn()
-    } else {
-      this.controls = new Notifier.Views.Controls();
-      this.addSubview(".controls", this.controls);
-    }
-  },
-
-  showFriends: function(){
-    if (this.friends) {
-      $(".friends").fadeIn()
-    } else {
-      this.friends = new Notifier.Views.Friends({collection: this.users()});
-      this.addSubview(".friends", this.friends);
-    }
-  },
-
-  showUsername: function(){
-    if (this.username) {
-      $(".username").fadeIn();
-    } else {
-      this.username = new Notifier.Views.Username();
-      this.addSubview(".username", this.username);
-    }
+  showBox: function(box){
+    $("." + box).fadeIn();
+    $(".name input").focus();
   },
 
   showAll: function(){
-    this.showAlert();
-    this.showFriends();
-    this.showControls();
-    this.showMessages();
+    this.showBox("friends");
+    this.showBox("controls");
+    this.showBox("messages");
   },
 
-  hideAlert: function(){
-    $(".alert").fadeOut();
-  },
-
-  hideMessages: function(){
-    $(".messages").fadeOut();
-  },
-
-  hideControls: function(){
-    $(".controls").fadeOut();
-  },
-
-  hideFriends: function(){
-    $(".friends").fadeOut();
-  },
-
-  hideUsername: function(){
-    $(".username").fadeOut();
+  hideBox: function(box){
+    $("." + box).fadeOut();
   },
 
   hideAll: function(){
-    this.hideAlert();
-    this.hideMessages();
-    this.hideControls();
-    this.hideFriends();
-    this.hideUsername();
+    this.hideBox("alert");
+    this.hideBox("messages");
+    this.hideBox("controls");
+    this.hideBox("friends");
+    this.hideBox("username");
   },
 
   messages: function(){
@@ -134,8 +95,55 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     }
   },
 
+  afterRender: function(){
+    var that = this
+    setTimeout(function(){
+      $('.box').draggable({ handle: "h3" });
+      that.setupVoiceControls();
+      that.setupSockets();
+    },0)
+  },
+
+  updateUsername: function(event){
+    event.preventDefault();
+    var message = $('.username input').val();
+    this.updateName(message);
+  },
+
+  updateName: function(name){
+    this.dispatcher.trigger('change_username', {username: name});
+    this.hideBox("username");
+  },
+
+  setupVoiceControls: function(){
+    if (annyang) {
+      var commands = {
+        'hide all': this.hideAll.bind(this),
+        'show all': this.showAll.bind(this),
+        'show *term': this.showBox.bind(this),
+        'hide *term': this.hideBox.bind(this),
+        'change username': this.showBox.bind(this, "username"),
+        'change username to *term': this.updateName.bind(this)
+      };
+
+      annyang.addCommands(commands);
+      annyang.addCallback('resultNoMatch', this.dontUnderstand.bind(this));
+
+      annyang.start();
+    }
+  },
+
   dontUnderstand: function(){
     this.alert.addToQueue("I'm sorry, I didn't catch that. Try Again?");
+  },
+
+  setupSockets: function(){
+    this.dispatcher = new WebSocketRails('notifyer.herokuapp.com/websocket');
+
+    this.dispatcher.bind("new_message", this.newMessage.bind(this));
+    this.dispatcher.bind("update_user", this.updateUser.bind(this));
+    this.dispatcher.bind("new_user", this.newUser.bind(this));
+    this.dispatcher.bind("destroy_user", this.destroyUser.bind(this));
   },
 
   updateUser: function(new_user) {

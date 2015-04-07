@@ -16,7 +16,6 @@
   margin: 5px;
   background: rgba(200, 200, 200, .50);
   border-radius: 3px;
-
 }
 
 .box h3{
@@ -24,8 +23,9 @@
   margin-left: 10px;
   font-size: 16px;
   line-height: 21px;
-  -webkit-margin-before: 4px;
-  -webkit-margin-after: -10px;
+  cursor: move;
+  margin-top: 3px;
+  margin-bottom: -10px;
 }
 
 .alert{

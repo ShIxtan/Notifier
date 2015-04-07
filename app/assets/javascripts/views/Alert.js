@@ -16,13 +16,9 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
 
       setTimeout(function(){$(".alert").fadeOut()}, 4900);
     } else {
-      setTimeout(function(){$(".alert").hide()}, 0);
+      $(".alert").hide();
     }
     return this
-  },
-
-  updateQueue: function(){
-    this.addToQueue(this.model.get("content"));
   },
 
   addToQueue: function(string){
