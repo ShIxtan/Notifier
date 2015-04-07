@@ -44,6 +44,7 @@ Notifier.Routers.Router = Backbone.Router.extend({
       event.preventDefault();
       var message = {username: $('.username input').val()};
       dispatcher.trigger('change_username', message);
+      $(".username").fadeOut();
     })
   }
 })
