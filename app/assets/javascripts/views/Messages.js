@@ -2,7 +2,7 @@ Notifier.Views.Messages = Backbone.CompositeView.extend({
   template: JST['Messages'],
 
   initialize: function(){
-    this.listenTo(this.collection, "sync", this.render);
+    this.listenTo(this.collection, "change add remove", this.render);
   },
 
   render: function(){

@@ -28,10 +28,22 @@ Notifier.Routers.Router = Backbone.Router.extend({
 
       // Add our commands to annyang
       annyang.addCommands(commands);
-      //annyang.addCallback('resultNoMatch', this._mainView.dontUnderstand.bind(this._mainView));
+      annyang.addCallback('resultNoMatch', this._mainView.dontUnderstand.bind(this._mainView));
 
       // Start listening. You can call this here, or attach this call to an event, button, etc.
       annyang.start();
     }
+
+    var dispatcher = new WebSocketRails('localhost:3000/websocket');
+    dispatcher.bind("new_message", this._mainView.newMessage.bind(this._mainView));
+    dispatcher.bind("update_user", this._mainView.updateUser.bind(this._mainView));
+    dispatcher.bind("new_user", this._mainView.newUser.bind(this._mainView));
+    dispatcher.bind("destroy_user", this._mainView.destroyUser.bind(this._mainView));
+
+    $(".username").on("submit", function(event){
+      event.preventDefault();
+      var message = {username: $('.username input').val()};
+      dispatcher.trigger('change_username', message);
+    })
   }
 })

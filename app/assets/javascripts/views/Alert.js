@@ -2,9 +2,7 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
   template: JST['Alert'],
 
   initialize: function(){
-    this.listenTo(this.model, "sync change", this.updateQueue.bind(this));
     this.queue = [];
-
   },
 
   render: function(){
@@ -28,7 +26,7 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
   },
 
   addToQueue: function(string){
-    if (!this.queue){
+    if (this.queue.length < 1){
       this.renderIn(0);
     }
 

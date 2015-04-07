@@ -72,3 +72,7 @@ body {
   background-position: center;
   font-family: "Arial"
 }
+
+textarea:focus, input:focus{
+    outline: 0;
+}

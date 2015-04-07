@@ -2,7 +2,7 @@ Notifier.Views.Friends = Backbone.CompositeView.extend({
   template: JST['Friends'],
 
   initialize: function(){
-    this.listenTo(this.collection, "sync", this.render);
+    this.listenTo(this.collection, "change add remove", this.render);
   },
 
   render: function(){

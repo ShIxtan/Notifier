@@ -20,7 +20,7 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     if (this.alert) {
       $(".alert").fadeIn()
     } else {
-      this.alert = new Notifier.Views.Alert({model: this.message()});
+      this.alert = new Notifier.Views.Alert();
       this.addSubview(".alert", this.alert);
     }
   },
@@ -96,14 +96,6 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     this.hideUsername();
   },
 
-  message: function(){
-    if (!this._message){
-      this._message = new Notifier.Models.Alert();
-    }
-
-    return this._message;
-  },
-
   messages: function(){
     if (!this._messages){
       this._messages = new Notifier.Collections.Messages();
@@ -141,5 +133,24 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   dontUnderstand: function(){
     this.alert.addToQueue("I'm sorry, I didn't catch that. Try Again?");
+  },
+
+  updateUser: function(new_user) {
+    var user = this.users().findWhere({id: new_user.id})
+    user.set("username", new_user.username)
+  },
+
+  newMessage: function(message){
+    this.alert.addToQueue(message);
+    this.messages().add({content: message});
+  },
+
+  newUser: function(new_user){
+    this.users().add(new_user);
+  },
+
+  destroyUser: function(new_user){
+    var user = this.users().findWhere({id: new_user.id});
+    this.users().remove(user);
   }
 })

@@ -25,9 +25,12 @@ class SocketController < WebsocketRails::BaseController
     connection_store[:user] = @user
     new_message = "#{@user.username} has entered the room"
     broadcast_message :new_message, new_message
-    brodcast_message :new_user, {username: @user.username, id: @user.id}
+    broadcast_message :new_user, {username: @user.username, id: @user.id}
     @user.messages.each do |m|
       send_message :new_message, {content: m.content}
+    end
+    User.all.each do |user|
+      send_message :new_user, {username: user.username, id: user.id}
     end
   end
 
