@@ -26,11 +26,9 @@ Notifier.Routers.Router = Backbone.Router.extend({
         'change username': this._mainView.showUsername.bind(this._mainView),
       };
 
-      // Add our commands to annyang
       annyang.addCommands(commands);
       annyang.addCallback('resultNoMatch', this._mainView.dontUnderstand.bind(this._mainView));
 
-      // Start listening. You can call this here, or attach this call to an event, button, etc.
       annyang.start();
     }
 
