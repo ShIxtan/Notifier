@@ -4,18 +4,22 @@ Notifier.Views.Alert = Backbone.CompositeView.extend({
   initialize: function(){
     this.listenTo(this.model, "sync change", this.updateQueue.bind(this));
     this.queue = [];
+
   },
 
   render: function(){
+    if (this.queue.length > 0){
+      this.$el.html(this.template({content: this.queue.shift()}));
+      $('.alert').fadeIn();
 
-    this.$el.html(this.template({content: this.queue.shift()}));
-    this.$el.fadeIn();
+      if (this.queue.length > 0){
+        this.renderIn(5000);
+      }
 
-    if (this.queue){
-      this.renderIn(5000)
+      setTimeout(function(){$(".alert").fadeOut()}, 4900);
+    } else {
+      setTimeout(function(){$(".alert").hide()}, 0);
     }
-
-    setTimeout(function(){this.$el.fadeOut()}.bind(this), 4900)
     return this
   },
 

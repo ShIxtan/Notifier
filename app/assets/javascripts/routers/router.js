@@ -12,7 +12,6 @@ Notifier.Routers.Router = Backbone.Router.extend({
     this.$rootEl.html(this._mainView.render().$el);
 
     if (annyang) {
-      // Let's define our first command. First the text we expect, and then the function it should call
       var commands = {
         'show messages': this._mainView.showMessages.bind(this._mainView),
         'show alerts': this._mainView.showAlert.bind(this._mainView),
@@ -22,11 +21,14 @@ Notifier.Routers.Router = Backbone.Router.extend({
         'hide alerts': this._mainView.hideAlert.bind(this._mainView),
         'hide controls': this._mainView.hideControls.bind(this._mainView),
         'hide friends': this._mainView.hideFriends.bind(this._mainView),
+        'hide all': this._mainView.hideAll.bind(this._mainView),
+        'show all': this._mainView.showAll.bind(this._mainView),
+        'change username': this._mainView.showUsername.bind(this._mainView),
       };
 
       // Add our commands to annyang
       annyang.addCommands(commands);
-      annyang.addCallback('resultNoMatch', this._mainView.dontUnderstand.bind(this._mainView));
+      //annyang.addCallback('resultNoMatch', this._mainView.dontUnderstand.bind(this._mainView));
 
       // Start listening. You can call this here, or attach this call to an event, button, etc.
       annyang.start();

@@ -61,6 +61,13 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
     }
   },
 
+  showAll: function(){
+    this.showAlert();
+    this.showFriends();
+    this.showControls();
+    this.showMessages();
+  },
+
   hideAlert: function(){
     $(".alert").fadeOut();
   },
@@ -79,6 +86,14 @@ Notifier.Views.MainView = Backbone.CompositeView.extend({
 
   hideUsername: function(){
     $(".username").fadeOut();
+  },
+
+  hideAll: function(){
+    this.hideAlert();
+    this.hideMessages();
+    this.hideControls();
+    this.hideFriends();
+    this.hideUsername();
   },
 
   message: function(){
