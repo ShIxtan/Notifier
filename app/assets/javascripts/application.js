@@ -15,6 +15,7 @@
 //= require underscore
 //= require backbone
 //= require notifier
+//= require annyang.min.js
 //= require_tree ../templates
 //= require_tree ./utils
 //= require_tree ./models
