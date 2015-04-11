@@ -4,7 +4,7 @@ Demo notification/chat system for use in Virtual reality settings. The idea was 
 
 This project was built in rails, with backbone.js as the frontend. It uses websockets for realtime updates and tracking who's online. Voice controls use HTML5 speech recognition.
 
-Here is a [live link](notifyer.herokuapp.com)
+Here is a [live link](https://notifyer.herokuapp.com/)
 
 ## controls
 
